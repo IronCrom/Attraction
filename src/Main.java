@@ -1,16 +1,14 @@
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Main {
     public static void main(String[] args) {
-        Deque<Person> deque = new LinkedList<>(generateClients());
-        while (!deque.isEmpty()) {
-            Person client = deque.pollFirst();
-            if (client.numberOfTickets > 0) {
-                System.out.println(client.name + " " + client.surname + " прокатился на атракционе!");
-                client.numberOfTickets--;
-                deque.offerLast(client);
+        Queue<Person> queue = new LinkedList<>(generateClients());
+        while (!queue.isEmpty()) {
+            Person client = queue.poll();
+            if (client.spendTicket()) {
+                queue.offer(client);
             }
         }
     }
@@ -22,7 +20,6 @@ public class Main {
         personList.add(new Person("Сергей", "Сидоров", 11));
         personList.add(new Person("Андрей", "Попов", 9));
         personList.add(new Person("Николай", "Федоров", 3));
-
         return personList;
     }
 }
